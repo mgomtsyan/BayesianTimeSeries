@@ -6,7 +6,7 @@ Bayesian Time Series Forecasting with Change Point and Anomaly Detection
 
 
 
-## Abstract:
+## Abstract
 
 Time series forecasting plays a crucial role in marketing, finance and many other quantitative fields. A large amount of methodologies has been developed on this topic. However, their performance is easily undermined by the existence of change points and anomaly points, two structures commonly observed in real data, but rarely considered in the aforementioned methods. In this paper, we propose a novel state space time series model, with the capability to capture the structure of change points and anomaly points, as well as trend and seasonality. In both synthetic data and real data applications, our methodology yields a better performance in time series forecasting compared with existing methods, along with more accurate change point detection and anomaly detection.
 
