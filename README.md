@@ -2,7 +2,7 @@
 
 Bayesian Time Series Forecasting with Change Point and Anomaly Detection
 
-[Read the paper](https://17a11ed1-a-62cb3a1a-s-sites.googlegroups.com/site/nipsts2017/NIPS_2017_TSW_paper_12.pdf?attachauth=ANoY7coz2w2i1MR63_W8_49OkiKIeN8rYF5YlbRPOACxEfnp0mtP2NxXwbrW7dnGe4rJPu6eIHmDO44wgLNi5WSyVnOGfPKA2f9IOWHG1VQIz06GzgHSz_k3rFLy_VHtRJ1DSvaPR7fT3SMDG_zzprg4zHoQoENkvnHXqOGz_bH0bCVErZnrGoJB3HDa-k3FrEAiKqySnD5YbOC8S7OuVoLN_8Nj0qYfxmzyjGtq_teg3Ftvz-iEsrE%3D&attredirects=0)
+[Link to the paper](https://17a11ed1-a-62cb3a1a-s-sites.googlegroups.com/site/nipsts2017/NIPS_2017_TSW_paper_12.pdf?attachauth=ANoY7coz2w2i1MR63_W8_49OkiKIeN8rYF5YlbRPOACxEfnp0mtP2NxXwbrW7dnGe4rJPu6eIHmDO44wgLNi5WSyVnOGfPKA2f9IOWHG1VQIz06GzgHSz_k3rFLy_VHtRJ1DSvaPR7fT3SMDG_zzprg4zHoQoENkvnHXqOGz_bH0bCVErZnrGoJB3HDa-k3FrEAiKqySnD5YbOC8S7OuVoLN_8Nj0qYfxmzyjGtq_teg3Ftvz-iEsrE%3D&attredirects=0)
 
 
 
