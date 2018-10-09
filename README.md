@@ -22,4 +22,5 @@ d. Apply model to some time-series data from Kaggle
 3. Team Members:
 
 Daria Demidova
+
 Marina Gomtyan
