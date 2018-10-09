@@ -12,13 +12,13 @@ Time series forecasting plays a crucial role in marketing, finance and many othe
 
 Project goals:
 
-a. Implement model with Gibbs sampler
+1. Implement model with Gibbs sampler
 
-b. Extend model with variational inference approach
+2. Extend model with variational inference approach
 
-c. Compare results on experiments from paper
+3. Compare results on experiments from paper
 
-d. Apply model to some time-series data from Kaggle
+4. Apply model to some time-series data from Kaggle
 
 
 
