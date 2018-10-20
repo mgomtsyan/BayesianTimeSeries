@@ -8,7 +8,7 @@ import pyro.distributions as dist
 
 from torch.distributions.normal import Normal
 
-def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e, sigma_o, sigma_u, sigma_r, sigma_v, sigma_w, p_a, p_c, L, L_train, t_c_fixed, c_fixed, t_r_fixed, r_fixed):
+def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e, sigma_o, sigma_u, sigma_r, sigma_v, sigma_w, p_a, p_c, L, L_train, S, t_c_fixed, c_fixed, t_r_fixed, r_fixed):
     
     # 1. Generate anomalies and change points indexes
     
