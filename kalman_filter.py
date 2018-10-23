@@ -6,13 +6,16 @@ import pyro.distributions as dist
 from generation_with_evaluation_period import generative_procedure_with_evaluation_period
 
 
-def kalman_filter(n, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, R_t):
+def kalman_filter(L, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, R_t):
     
     a_t = a_1
     P_t = P_1
     
-    for t in range(1, n + 1):
-        v_t = y[0] + Z_t @ a_t
+    a = [a_t]
+    P = [P_t]
+    
+    for t in range(0, L - 1):
+        v_t = y[t] + Z_t @ a_t
         F_t = Z_t @ P_t @ torch.t(Z_t) + p_a * H_o + (1 - p_a) * H_e
         
         a_tt = a_t + P_t @ torch.t(Z_t) * (1 / F_t.item()) * v_t
@@ -25,8 +28,11 @@ def kalman_filter(n, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, 
         
         a_t = a_t_new 
         P_t = P_t_new
+        
+        a.append(a_t)
+        P.append(P_t)
     
-    return a_t, P_t
+    return a, P
 
 
 def gen_a_1(S, y):
@@ -39,10 +45,10 @@ def gen_a_1(S, y):
     return a_1
 
 
-def gen_P_1(S):
+def gen_P_1(S, d):
     
     m = S + 1
-    diag_elems = torch.FloatTensor([200] * m)
+    diag_elems = torch.FloatTensor([d] * m)
     P_1 = torch.diag(diag_elems)
     
     return P_1
