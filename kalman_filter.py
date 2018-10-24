@@ -18,13 +18,12 @@ def kalman_filter(L, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, 
         v_t = y[t] + Z_t @ a_t
         F_t = Z_t @ P_t @ torch.t(Z_t) + p_a * H_o + (1 - p_a) * H_e
         
-        a_tt = a_t + P_t @ torch.t(Z_t) * (1 / F_t.item()) * v_t
         P_tt = P_t - P_t @ torch.t(Z_t) * (1 / F_t.item()) @ Z_t @ P_t
 
         K_t = T_t @ P_t @ torch.t(Z_t) * (1 / F_t.item())
         
         a_t_new = T_t @ a_t + K_t @ v_t
-        P_t_new = T_t @ P_tt @ torch.t(T_t) + R_t @ (p_c * Q_eta + (1 - p_c * Q_xi)) @ torch.t(R_t)
+        P_t_new = T_t @ P_tt @ torch.t(T_t) + R_t @ (p_c * Q_eta + (1 - p_c) * Q_xi) @ torch.t(R_t)
         
         a_t = a_t_new 
         P_t = P_t_new
@@ -40,7 +39,7 @@ def gen_a_1(S, y):
     m = S + 1
     a_1 = torch.FloatTensor([0] * m)
     a_1[0] = y[0:S].mean()
-    a_1 = a_1.view(8, -1)
+    a_1 = a_1.view(m, -1)
     
     return a_1
 
