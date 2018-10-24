@@ -56,7 +56,9 @@ def gen_P_1(S, d):
 def gen_Z_t(S):
     
     m = S + 1
-    Z_t = torch.FloatTensor([1,0] * int(m / 2))
+    Z_t_1 = torch.FloatTensor([1, 0, 1])
+    Z_t_2 = torch.FloatTensor([0] * (m - 3))
+    Z_t = torch.cat((Z_t_1, Z_t_2), dim = 0)
     Z_t = Z_t.unsqueeze(0)
     
     return Z_t
