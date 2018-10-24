@@ -15,7 +15,7 @@ def kalman_filter(L, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, 
     P = [P_t]
     
     for t in range(0, L - 1):
-        v_t = y[t] + Z_t @ a_t
+        v_t = y[t] - Z_t @ a_t
         F_t = Z_t @ P_t @ torch.t(Z_t) + p_a * H_o + (1 - p_a) * H_e
         
         P_tt = P_t - P_t @ torch.t(Z_t) * (1 / F_t.item()) @ Z_t @ P_t
