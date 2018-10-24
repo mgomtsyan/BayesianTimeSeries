@@ -40,7 +40,7 @@ def gen_a_1(S, y):
     m = S + 1
     a_1 = torch.FloatTensor([0] * m)
     a_1[0] = y[0:S].mean()
-    a_1_ = a_1.view(8, -1)
+    a_1 = a_1.view(8, -1)
     
     return a_1
 
