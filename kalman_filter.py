@@ -6,20 +6,26 @@ import pyro.distributions as dist
 from generation_with_evaluation_period import generative_procedure_with_evaluation_period
 
 
-def kalman_filter(L, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, R_t):
+def kalman_filter(L, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, R_t):
     
     a_t = a_1
     P_t = P_1
     
     a = [a_t]
     P = [P_t]
+    K = []
+    v = []
+    F = []
     
     for t in range(0, L - 1):
         v_t = y[t] - Z_t @ a_t
         F_t = Z_t @ P_t @ torch.t(Z_t) + p_a * H_o + (1 - p_a) * H_e
         
         P_tt = P_t - P_t @ torch.t(Z_t) * (1 / F_t.item()) @ Z_t @ P_t
+
         K_t = T_t @ P_t @ torch.t(Z_t) * (1 / F_t.item())
+        
+        
         
         a_t_new = T_t @ a_t + K_t @ v_t
         P_t_new = T_t @ P_tt @ torch.t(T_t) + R_t @ (p_c * Q_eta + (1 - p_c) * Q_xi) @ torch.t(R_t)
@@ -28,9 +34,13 @@ def kalman_filter(L, m, y, a_1, P_1, Z_t, p_a, p_c, T_t, H_e, H_o, Q_eta, Q_xi, 
         P_t = P_t_new
         
         a.append(a_t)
+        v.append(v_t)
+        
+        F.append(F_t)
+        K.append(K_t)
         P.append(P_t)
     
-    return a, P
+    return a, P, K, F, v
 
 
 def gen_a_1(S, y):
