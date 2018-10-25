@@ -12,6 +12,7 @@ def kalman_smoothing(L_train, v, a, F, K, P, T_t, Z_t):
       
     
     r_t = torch.zeros(T_t.shape[0], dtype = torch.float64)
+    r_t = r_t.view(r_t.shape[0], -1)
     N_t = torch.zeros(T_t.shape[0], dtype = torch.float64)
     
     for i in range(L_train - 1, -1, -1):
