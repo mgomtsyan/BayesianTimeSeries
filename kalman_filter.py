@@ -80,7 +80,7 @@ def gen_T_t(S):
     return T_t
 
 
-def gen_R_t(S, r):
+def gen_R_t(S):
     
     m = S + 1
     R_mu = torch.eye(2)
