@@ -8,7 +8,7 @@ import pyro.distributions as dist
 
 from torch.distributions.normal import Normal
 
-def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e, sigma_o, sigma_u, sigma_r, sigma_v, sigma_w, p_a, p_c, L, L_train, S, t_c_fixed, c_fixed, t_r_fixed, r_fixed):
+def generative_procedure_with_eval(mu_0, delta_0, gamma_0, sigma_e, sigma_o, sigma_u, sigma_r, sigma_v, sigma_w, p_a, p_c, L, L_train, S, t_c_fixed, c_fixed, t_r_fixed, r_fixed):
     
     # 1. Generate anomalies and change points indexes
     
@@ -50,6 +50,8 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
     gamma = []
     gamma_with_initial_values = []
     
+    gamma_vec = [torch.tensor(gamma_0)]
+    
     
     
     for i in range(len(gamma_0)):
@@ -62,6 +64,8 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
         mu_t = mu_with_initial_values[-1] + delta_with_initial_values[-1]
 
         delta_t = delta_with_initial_values[-1] + v[t]
+        
+
             
         
         if z_c[t] == 0:
@@ -71,6 +75,10 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
             
         gamma_t = - sum(gamma_with_initial_values[-(S-1):]) + w[t]
         
+        gamma_vec_t = torch.zeros((S-1), dtype = torch.float64)
+        gamma_vec_t[0] = gamma_t
+        gamma_vec_t[1:] = gamma_vec[-1][:S-2]
+        
         mu.append(mu_t)
         mu_with_initial_values.append(mu_t)
         
@@ -79,6 +87,8 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
         
         gamma.append(gamma_t)
         gamma_with_initial_values.append(gamma_t)
+        
+        gamma_vec.append(gamma_vec_t)
             
         
         
@@ -88,6 +98,8 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
     delta_with_initial_values = torch.tensor(delta_with_initial_values)
     gamma = torch.tensor(gamma)
     gamma_with_initial_values = torch.tensor(gamma_with_initial_values)
+    
+    gamma_vec = gamma_vec[1:]
 
     # 4. Generate y
     
@@ -104,9 +116,11 @@ def generative_procedure_with_evaluation_period(mu_0, delta_0, gamma_0, sigma_e,
             
         y.append(y_t)
         
-    y = torch.tensor(y)
+    y = torch.DoubleTensor(y)
         
-    return (y, mu, delta, gamma, mu_with_initial_values, delta_with_initial_values, gamma_with_initial_values, z_a, z_c)
+    return (y, mu, delta, gamma, mu_with_initial_values, delta_with_initial_values, gamma_with_initial_values, gamma_vec, z_a, z_c)
+        
+    
         
     
     
