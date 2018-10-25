@@ -15,7 +15,7 @@ def update_p_a_t(p_a, sigma_0, sigma_e, y_t, mu_t, gamma_t):
     
     p_a_t = p_a_t_1 / (p_a_t_1 + p_a_t_0)
     
-    return p_c_t
+    return p_a_t
     
 def update_p_c_t(p_c, sigma_r, sigma_u, mu_t, mu_t_prev, delta_t_prev):
     distr_1 = dist.Normal(mu_t_prev + delta_t_prev,sigma_r)
