@@ -29,13 +29,13 @@ def update_p_c_t(p_c, sigma_r, sigma_u, mu_t, mu_t_prev, delta_t_prev):
     
 def generate_z_a_t(p_a, sigma_0, sigma_e, y_t, mu_t, gamma_t):
     p_a_t = update_p_a_t(p_a, sigma_0, sigma_e, y_t, mu_t, gamma_t)
-    distr_1 = distr.Bernoulli(p_a_t)
+    distr_1 = dist.Bernoulli(p_a_t)
     
     return distr_1.sample()
     
 def generate_z_c_t(p_c, sigma_r, sigma_u, mu_t, mu_t_prev, delta_t_prev):
     p_c_t = update_p_a_t(p_c, sigma_r, sigma_u, mu_t, mu_t_prev, delta_t_prev)
-    distr_1 = distr.Bernoulli(p_c_t)
+    distr_1 = dist.Bernoulli(p_c_t)
     
     return distr_1.sample()
     
