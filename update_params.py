@@ -21,12 +21,12 @@ def update_sigma_e(y, mu, gamma, z_a, sigma_e):
     
     sigma_e = ( ((y_not_a - mu_not_a - gamma_not_a) **2).sum() / n)** 0.5
     
-    return sigma_e
+    return sigma_e.item()
     
 def update_sigma_o(y, mu, gamma, z_a, sigma_o):
     
     if z_a.sum() == 0:
-        return z_a
+        return sigma_o
     
     t_anomaly = torch.nonzero(z_a)[:,0]
     n = t_anomaly.shape[0]
@@ -37,7 +37,7 @@ def update_sigma_o(y, mu, gamma, z_a, sigma_o):
     
     sigma_o = ( ((y_a - mu_a - gamma_a) **2).sum() / n)** 0.5
     
-    return sigma_o
+    return sigma_o.item()
     
 def update_sigma_u(mu,mu_with_initial_values, delta, delta_with_initial_values, z_c, sigma_u):
     
@@ -54,7 +54,7 @@ def update_sigma_u(mu,mu_with_initial_values, delta, delta_with_initial_values, 
     
     sigma_u = ( ((mu_not_c - mu_prev_not_c - delta_prev_not_c) **2).sum() / n)** 0.5
     
-    return sigma_u
+    return sigma_u.item()
     
 def update_sigma_r(mu,mu_with_initial_values, delta, delta_with_initial_values, z_c, sigma_r):
     
@@ -72,13 +72,13 @@ def update_sigma_r(mu,mu_with_initial_values, delta, delta_with_initial_values, 
     
     sigma_r = ( ((mu_c - mu_prev_c - delta_prev_c) **2).sum() / n)** 0.5
     
-    return sigma_r
+    return sigma_r.item()
     
 def update_sigma_delta(delta, delta_with_initial_values):
     n = delta.shape[0] 
     sigma_delta = (((delta - delta_with_initial_values[:-1]) ** 2).sum() / n) ** 0.5
     
-    return sigma_delta
+    return sigma_delta.item()
     
 def update_sigma_gamma(gamma, gamma_with_initial_values, S):
     n = gamma.shape[0]
@@ -92,4 +92,4 @@ def update_sigma_gamma(gamma, gamma_with_initial_values, S):
     
     sigma_gamma = (sum_sum_g_2 / n) ** 0.5
     
-    return(sigma_gamma)
+    return sigma_gamma.item()
